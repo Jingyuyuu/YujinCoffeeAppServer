@@ -3,6 +3,7 @@ package tw.myapp.YujinCoffeeAppServer.appdbController;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tw.myapp.YujinCoffeeAppServer.appdService.memberService;
 import tw.myapp.YujinCoffeeAppServer.appdbRepository.memberRepository;
 
 import java.util.List;
@@ -13,16 +14,18 @@ import java.util.Map;
 public class memberController {
 
     @Autowired
-    memberRepository memberRepository;
+    memberService memberser;
+    @Autowired
+    memberRepository memberRepo;
 
     @GetMapping("/allMember")
     public List<Map<String,Object>> getAllMemberData(){
-        return  memberRepository.getMemberData();
+        return  memberRepo.getMemberData();
     }
 
     @GetMapping("/{email}")
     public Map<String,Object> getMemberDataByAcc(@PathVariable String email){
-        return memberRepository.getMemberByAcc(email);
+        return memberRepo.getMemberByAcc(email);
     }
 
     @PostMapping("/login")
@@ -33,21 +36,9 @@ public class memberController {
         System.out.println("後端接收消息object.getJSONObject="+object.getJSONObject("logData").toString(4));
         JSONObject data=object.getJSONObject("logData");
         System.out.println("帳號 :"+data.getString("acc")+"密碼 :"+data.getString("pwd"));
-        long c = memberRepository.memberCheck(data.getString("acc"),data.getString("pwd"));
-        //準備一個回傳用的JSONObject
-        JSONObject responseObject=new JSONObject();
-        responseObject.put("type",2);
-        if(c==0){
-            responseObject.put("status",444);
-            responseObject.put("mesg","驗證失敗");
-        }else{
-            responseObject.put("status",666);
-            responseObject.put("mesg","驗證成功");
-        }
 
-
-        System.out.println("server回應login需求,登入結果="+c);
-        return responseObject.toString();
+        System.out.println("server回應login需求,登入結果="+memberser.getLoginResult(data.getString("acc"), data.getString("pwd")).toString());
+        return memberser.getLoginResult(data.getString("acc"), data.getString("pwd")).toString();
     }
 
 
