@@ -25,4 +25,11 @@ public class memberRepository implements ImemberDao{
         return jdbcTemplate.queryForMap("select * from member where email=?;",email);
     }
 
+    public long memberCheck(String acc,String pwd){
+        String query=
+                "select count(*) from member where email=? and passwd=?";
+        long count = jdbcTemplate.queryForObject(query,new Object[]{acc,pwd}, Long.class);
+        return  count;
+    }
+
 }
