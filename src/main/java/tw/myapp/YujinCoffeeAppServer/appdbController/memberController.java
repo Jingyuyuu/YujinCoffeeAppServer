@@ -24,5 +24,11 @@ public class memberController {
         return memberRepository.getMemberByAcc(email);
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody String body){
+        System.out.println("後端接收消息"+body);
+        return "server回應login需求";
+    }
+
 
 }
