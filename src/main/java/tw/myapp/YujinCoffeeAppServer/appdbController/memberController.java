@@ -34,8 +34,20 @@ public class memberController {
         JSONObject data=object.getJSONObject("logData");
         System.out.println("帳號 :"+data.getString("acc")+"密碼 :"+data.getString("pwd"));
         long c = memberRepository.memberCheck(data.getString("acc"),data.getString("pwd"));
+        //準備一個回傳用的JSONObject
+        JSONObject responseObject=new JSONObject();
+        responseObject.put("type",2);
+        if(c==0){
+            responseObject.put("status",444);
+            responseObject.put("mesg","驗證失敗");
+        }else{
+            responseObject.put("status",666);
+            responseObject.put("mesg","驗證成功");
+        }
+
+
         System.out.println("server回應login需求,登入結果="+c);
-        return "server回應login需求,登入結果="+c;
+        return responseObject.toString();
     }
 
 
