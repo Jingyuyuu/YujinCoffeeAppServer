@@ -36,23 +36,31 @@ public class memberController {
         System.out.println("後端接收消息object.getJSONObject="+object.getJSONObject("logData").toString(4));
         JSONObject data=object.getJSONObject("logData");
         System.out.println("帳號 :"+data.getString("acc")+"密碼 :"+data.getString("pwd"));
-
         System.out.println("server回應login需求,登入結果="+memberser.getLoginResult(data.getString("acc"), data.getString("pwd")).toString());
+
         return memberser.getLoginResult(data.getString("acc"), data.getString("pwd")).toString();
     }
     @PostMapping("/register")
     public String register(@RequestBody String body){
         JSONObject object=new JSONObject(body);
         System.out.println("後端接收消息"+body);
+
         JSONObject data=object.getJSONObject("regData");
-        System.out.println("name :"+data.getString("name")+"email :"+data.getString("email")
+        System.out.println(
+                 "name :"+data.getString("name")
+                +"email :"+data.getString("email")
                 +"pwd :"+data.getString("pwd")
                 +"phone :"+data.getString("phone"));
 
-        return memberRepo.registerMember(data.getString("name")
+        return  memberser.memberCheckService(
+                data.getString("name")
                 ,data.getString("email")
                 ,data.getString("pwd")
                 ,data.getString("phone")).toString();
+
+
+
+
     }
 
 }

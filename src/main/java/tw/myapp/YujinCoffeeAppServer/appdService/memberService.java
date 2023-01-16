@@ -24,6 +24,21 @@ public class memberService {
         return  responseObject;
     }
 
+    public JSONObject memberCheckService(String name,String email,String pwd,String phone){
+        long emailIsExits=memberRepo.emailCheck(email);
+        JSONObject responseObject=new JSONObject();
+        if (emailIsExits == 0){
+            memberRepo.registerMember(name,email,pwd,phone);
+            responseObject.put("status",000);
+            responseObject.put("mesg","帳號註冊成功");
+        }else{
+            responseObject.put("status",111);
+            responseObject.put("mesg","email已存在，請重新註冊");
+        }
+        return responseObject;
+    }
+
+
 
 
 }

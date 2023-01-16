@@ -32,6 +32,13 @@ public class memberRepository implements ImemberDao{
         return  count;
     }
 
+    public long emailCheck(String email){
+        String query=
+                "select count(*) from member where email=?";
+        long count = jdbcTemplate.queryForObject(query,new Object[]{email}, Long.class);
+        return  count;
+    }
+
 
     public String registerMember(String name,String email,String pwd,String phone){
         String sql=
