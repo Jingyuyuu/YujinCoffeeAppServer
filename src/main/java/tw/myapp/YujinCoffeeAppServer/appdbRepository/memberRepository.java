@@ -32,4 +32,13 @@ public class memberRepository implements ImemberDao{
         return  count;
     }
 
+
+    public String registerMember(String name,String email,String pwd,String phone){
+        String sql=
+                "insert into member (name,email,passwd,phone) values (?,?,?,?) ;";
+        jdbcTemplate.queryForMap(sql,name,email,pwd,phone);
+        return "註冊成功";
+    }
+
+
 }
