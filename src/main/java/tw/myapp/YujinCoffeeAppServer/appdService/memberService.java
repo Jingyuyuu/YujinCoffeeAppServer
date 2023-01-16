@@ -31,9 +31,11 @@ public class memberService {
             memberRepo.registerMember(name,email,pwd,phone);
             responseObject.put("status",000);
             responseObject.put("mesg","帳號註冊成功");
+            System.out.println("註冊成功");
         }else{
             responseObject.put("status",111);
             responseObject.put("mesg","email已存在，請重新註冊");
+            System.out.println("Email已經存在");
         }
         return responseObject;
     }
