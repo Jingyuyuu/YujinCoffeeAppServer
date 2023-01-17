@@ -44,7 +44,7 @@ public class memberRepository implements ImemberDao{
         String sql=
                 "insert into member (name,email,passwd,phone) values (?,?,?,?) ;";
         jdbcTemplate.queryForMap(sql,name,email,pwd,phone);
-        return "註冊成功";
+        return "register is sussed";
     }
 
 
