@@ -12,6 +12,8 @@ import java.util.Map;
 public class memberRepository implements ImemberDao{
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+
     @Override
     public Member getMemberByAccount(String account) {
         return null;
@@ -47,6 +49,17 @@ public class memberRepository implements ImemberDao{
         jdbcTemplate.update(sql,name,email,pwd,phone);
         return "register is sussed";
     }
+
+    public String reNewMember(String name,String pwd,String phone,String email){
+        String sql=
+        "UPDATE member SET name=?,passwd=?,phone=? WHERE email=?";
+        jdbcTemplate.update(sql,name,pwd,phone,email);
+        return "register is sussed";
+    }
+
+
+
+
 
 
 }

@@ -63,20 +63,20 @@ public class memberController {
     @PostMapping("/reNewMemberData")
     public String reNewMemberData(@RequestBody String body){
         JSONObject object=new JSONObject(body);
-        System.out.println("後端接收消息"+body);
+        System.out.println("後端接收更新的會員資料"+body);
 
         JSONObject data=object.getJSONObject("NewMemberData");
         System.out.println(
-                "name :"+data.getString("name")
+                        "name :"+data.getString("name")
                         +"email :"+data.getString("email")
                         +"pwd :"+data.getString("pwd")
                         +"phone :"+data.getString("phone"));
 
-        return  memberser.memberCheckService(
-                data.getString("name")
-                ,data.getString("email")
-                ,data.getString("pwd")
-                ,data.getString("phone")).toString();
+        return  memberser.reNewMemberResult(
+                data.getString("name"),
+                data.getString("pwd"),
+                data.getString("phone"),
+                data.getString("email")).toString();
 
     }
 

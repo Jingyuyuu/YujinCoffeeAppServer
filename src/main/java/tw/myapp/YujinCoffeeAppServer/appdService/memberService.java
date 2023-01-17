@@ -45,7 +45,16 @@ public class memberService {
         return responseObject;
     }
 
+    public JSONObject reNewMemberResult(String name,String pwd,String phone,String email){
+        memberRepo.reNewMember(name,pwd,phone,email);
 
+        JSONObject responseObject=new JSONObject();
+        responseObject.put("type",3);
+        responseObject.put("status",123);
+        responseObject.put("mesg","會員資料更新成功");
+
+        return  responseObject;
+    }
 
 
 }
