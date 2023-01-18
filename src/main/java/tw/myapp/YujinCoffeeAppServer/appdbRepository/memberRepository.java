@@ -52,9 +52,16 @@ public class memberRepository implements ImemberDao{
 
     public String reNewMember(String name,String pwd,String phone,String email){
         String sql=
-        "UPDATE member SET name=?,passwd=?,phone=? WHERE email=?";
+        "UPDATE member SET name=?,passwd=?,phone=? WHERE email=? ;";
         jdbcTemplate.update(sql,name,pwd,phone,email);
         return "register is sussed";
+    }
+
+    public Map<String,Object> getMemberDataFromDB(String email){
+        String sql=
+                "SELECT name,email,phone,points FROM member WHERE email=?;";
+
+        return jdbcTemplate.queryForMap(sql,email);
     }
 
 
