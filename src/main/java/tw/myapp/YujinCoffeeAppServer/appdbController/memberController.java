@@ -81,4 +81,27 @@ public class memberController {
     }
 
 
+    @PostMapping("/getMemberData")
+    public MemberMO getMemberDatab(@RequestBody String body){
+        JSONObject object=new JSONObject(body);
+        System.out.println("後端接收EMAIL="+body);
+
+        JSONObject data=object.getJSONObject("memberEmail");
+        System.out.println("email :"+data.getString("email"));
+        Map<String, Object> mo =memberRepo.getMemberDataFromDB(data.getString("email"));
+        mo.put("status",999);
+        System.out.println("Controller: " + mo.toString());
+        MemberMO memmo = new MemberMO(999, "正常", mo);
+
+        return  memmo;
+
+
+
+    }
+
+
+
+
+
+
 }

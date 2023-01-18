@@ -56,5 +56,19 @@ public class memberService {
         return  responseObject;
     }
 
+    /*
+    public JSONObject getMemberDataSer(String email){
+       memberRepo.getMemberDataFromDB(email);
+
+        JSONObject responseObject=new JSONObject();
+        responseObject.put("type",4);
+        responseObject.put("status",456);
+        responseObject.put("mesg","會員資料取得成功");
+
+        return  responseObject;
+    }
+
+     */
+
 
 }
