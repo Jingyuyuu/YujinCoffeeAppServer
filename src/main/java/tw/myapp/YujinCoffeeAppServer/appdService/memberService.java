@@ -37,7 +37,6 @@ public class memberService {
             memberRepo.registerMember(name,email,pwd,phone);
 
         }else{
-            //不管帳號有沒有存在 最後都只有回傳這一段
             responseObject.put("status",111);
             responseObject.put("mesg","email已存在，請重新註冊");
             System.out.println("Email已經存在");

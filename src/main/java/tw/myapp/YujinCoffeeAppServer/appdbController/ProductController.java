@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tw.myapp.YujinCoffeeAppServer.appdService.productService;
 import tw.myapp.YujinCoffeeAppServer.appdbRepository.productRepository;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -78,6 +79,8 @@ public class ProductController {
         //取得訂單編號
         int orderid=productSer.getOid(email,date);
         System.out.println("orderid="+orderid);
+        //取得會員編號
+        int memberid=productSer.getMid(email);
 
         for(int i=0;i<orderArray.length();i++){
             orderList=new orderDetail(
@@ -90,6 +93,7 @@ public class ProductController {
             //呼叫productService的方法把訂單明細寫入資料庫
             productSer.orderDetailInsert(
                     orderid,
+                    memberid,
                     orderList.getName(),
                     orderList.getIce(),
                     orderList.getSugar(),
@@ -97,10 +101,38 @@ public class ProductController {
                     orderList.getPrice()
             );
         }
-
-
-
         return orderResult.toString();
     }
+
+
+    //取得會員歷史訂單
+    @PostMapping("/getHistoryOrder")
+    public productMO getHistoryOrder(@RequestBody String body){
+        JSONObject object=new JSONObject(body);
+        System.out.println("後端接收會員email以取得歷史訂單"+body);
+
+        JSONObject data=object.getJSONObject("Email");
+        System.out.println("會員email="+data.getString("email"));
+
+        int mid=productSer.getMid(data.getString("email"));
+        List<Map<String,Object>> historyOrder=productSer.getHistoryOrderByMid(mid);
+
+        //印出historyOrder的所有內容
+        for(int i=0;i<historyOrder.size();i++){
+            Map<String,Object> map=historyOrder.get(i);
+            Iterator<String> it=map.keySet().iterator();
+            while(it.hasNext()){
+                String key=it.next();
+                Object value=map.get(key);
+                System.out.println(key+":"+value);
+
+            }
+        }
+        productMO pMo=new productMO(2000,"回傳歷史訂單成功",historyOrder);
+
+        return  pMo;
+
+    }
+
 
 }

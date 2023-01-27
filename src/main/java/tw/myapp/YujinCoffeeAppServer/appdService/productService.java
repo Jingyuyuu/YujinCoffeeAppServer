@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import tw.myapp.YujinCoffeeAppServer.appdbRepository.memberRepository;
 import tw.myapp.YujinCoffeeAppServer.appdbRepository.productRepository;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class productService {
 
@@ -31,12 +34,25 @@ public class productService {
         return  orderid;
     }
 
-    public int orderDetailInsert(int oid,String name,String ice,String sugar,int amount,int dollar){
+    public int getMid(String email){
+        //呼叫productRepository方法取得訂單編號
+        int membererid=productRepo.getMemberderid(email);
+
+        return  membererid;
+    }
+
+    public int orderDetailInsert(int oid,int mid,String name,String ice,String sugar,int amount,int dollar){
         //呼叫productRepository方法寫入訂單明細資料
-        productRepo.insertInToOderDetail(oid,name,ice,sugar,amount,dollar);
+        productRepo.insertInToOderDetail(oid,mid,name,ice,sugar,amount,dollar);
 
         return  0;
     }
 
+    public List<Map<String,Object>> getHistoryOrderByMid(int mid){
+        //呼叫productRepository方法取得歷史訂單
+        List<Map<String,Object>> historyOrder=productRepo.getHistoryOrderFromDB(mid);
+
+        return  historyOrder;
+    }
 
 }

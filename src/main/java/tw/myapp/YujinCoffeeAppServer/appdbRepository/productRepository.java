@@ -33,15 +33,33 @@ public class productRepository {
         int count = jdbcTemplate.queryForObject(query,new Object[]{email,date}, Integer.class);
         return  count;
     }
+    //抓取會員編號
+    public int getMemberderid(String email){
+        //SELECT [m_id]  FROM [dbo].[member] WHERE [email]='li@gmail.com';
+        String query=
+                "select m_id  FROM member WHERE email=?";
+        int count = jdbcTemplate.queryForObject(query,new Object[]{email}, Integer.class);
+        return  count;
+    }
+
 
 
     //將訂單明細寫入雲端資料庫
-    public String insertInToOderDetail(int oid,String name,String ice,String sugar,int amount,int dollar){
+    public String insertInToOderDetail(int oid,int mid,String name,String ice,String sugar,int amount,int dollar){
         String sql=
-                "insert into orderdetail (o_id,name,ice,sugar,amount,dollar) values (?,?,?,?,?,?) ;";
+                "insert into orderdetail (o_id,m_id,name,ice,sugar,amount,dollar) values (?,?,?,?,?,?,?) ;";
 
-        jdbcTemplate.update(sql,oid,name,ice,sugar,amount,dollar);
+        jdbcTemplate.update(sql,oid,mid,name,ice,sugar,amount,dollar);
         return "insert into ordetail sussed";
+    }
+
+
+    public List<Map<String,Object>> getHistoryOrderFromDB(int mid){
+        //SELECT [name],[ice],[sugar],[amount],[dollar] FROM [dbo].[orderdetail] WHERE [m_id]=3;
+        String sql=
+                "SELECT name,ice,sugar,amount,dollar FROM orderdetail WHERE m_id=?;";
+
+        return jdbcTemplate.queryForList(sql,mid);
     }
 
 
