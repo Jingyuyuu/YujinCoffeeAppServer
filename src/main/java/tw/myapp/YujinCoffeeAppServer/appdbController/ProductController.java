@@ -3,10 +3,7 @@ package tw.myapp.YujinCoffeeAppServer.appdbController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tw.myapp.YujinCoffeeAppServer.appdService.productService;
 import tw.myapp.YujinCoffeeAppServer.appdbRepository.productRepository;
 
@@ -132,6 +129,11 @@ public class ProductController {
 
         return  pMo;
 
+    }
+
+    @GetMapping("/data")
+    public List<Map<String,Object>> getAllData(){
+        return productRepo.getAllPrdouctData();
     }
 
 

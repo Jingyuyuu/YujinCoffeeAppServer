@@ -13,8 +13,12 @@ public class productRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
     public List<Map<String,Object>> getProsuct() {
-        return jdbcTemplate.queryForList("select * from products where series = 1;");
+        return jdbcTemplate.queryForList("select * from newproducts where series = 1;");
     }
+    public List<Map<String,Object>> getAllPrdouctData(){
+        return  jdbcTemplate.queryForList("Select * from newproduct;");
+    }
+
 
     //將訂單主檔寫入雲端資料庫
     public String insertInToOderMster(String email,String date,int total){
