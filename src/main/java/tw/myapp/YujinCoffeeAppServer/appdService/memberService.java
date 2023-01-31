@@ -55,6 +55,10 @@ public class memberService {
         return  responseObject;
     }
 
+    public void minusPoint(){
+
+    }
+
     /*
     public JSONObject getMemberDataSer(String email){
        memberRepo.getMemberDataFromDB(email);

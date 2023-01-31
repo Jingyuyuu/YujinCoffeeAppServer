@@ -94,13 +94,20 @@ public class memberController {
         MemberMO memmo = new MemberMO(999, "正常", mo);
 
         return  memmo;
+    }
+    @GetMapping("/point/{email}")
+    public int getPoint(@PathVariable String email){
 
-
+        System.out.println("點數兌換Email: " + email);
+        int point =memberRepo.getPoint(email);
+        return point;
 
     }
+    @GetMapping("/minuspoint/{point}/{email}")
+    public void getMinusPoint(@PathVariable int point,@PathVariable String email){
+        memberRepo.minusPoint(point,email);
 
-
-
+    }
 
 
 

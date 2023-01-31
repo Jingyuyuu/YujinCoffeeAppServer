@@ -44,9 +44,9 @@ public class memberRepository implements ImemberDao{
 
     public String registerMember(String name,String email,String pwd,String phone){
         String sql=
-                "insert into member (name,email,passwd,phone) values (?,?,?,?) ;";
+                "insert into member (name,email,passwd,phone,points) values (?,?,?,?,?) ;";
 
-        jdbcTemplate.update(sql,name,email,pwd,phone);
+        jdbcTemplate.update(sql,name,email,pwd,phone,0);
         return "register is sussed";
     }
 
@@ -63,6 +63,18 @@ public class memberRepository implements ImemberDao{
 
         return jdbcTemplate.queryForMap(sql,email);
     }
+
+    public int getPoint(String email){
+        String sql=
+                "SELECT points FROM member WHERE email=?;";
+        int count = jdbcTemplate.queryForObject(sql,new Object[]{email}, Integer.class);
+        return count;
+    }
+    public void minusPoint(int point,String email){
+        jdbcTemplate.update("Update  member set points=? where email=?;",new Object[]{point,email});
+
+    }
+
 
     //寫入訂單主檔資料
     //INSERT into [dbo].[ordermster] ([o_member_id],[o_date],[o_total]) values(22,'2022-12-17',325);
