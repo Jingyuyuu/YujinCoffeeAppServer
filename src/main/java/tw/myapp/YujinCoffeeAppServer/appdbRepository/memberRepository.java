@@ -64,6 +64,8 @@ public class memberRepository implements ImemberDao{
         return jdbcTemplate.queryForMap(sql,email);
     }
 
+    //寫入訂單主檔資料
+    //INSERT into [dbo].[ordermster] ([o_member_id],[o_date],[o_total]) values(22,'2022-12-17',325);
 
 
 
