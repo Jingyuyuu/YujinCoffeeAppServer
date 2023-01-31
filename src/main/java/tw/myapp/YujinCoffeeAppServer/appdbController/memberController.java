@@ -82,7 +82,7 @@ public class memberController {
 
 
     @PostMapping("/getMemberData")
-    public MemberMO getMemberDatab(@RequestBody String body){
+    public MemberMO getMemberData(@RequestBody String body){
         JSONObject object=new JSONObject(body);
         System.out.println("後端接收EMAIL="+body);
 
