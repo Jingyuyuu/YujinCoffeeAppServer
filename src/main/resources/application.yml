@@ -2,5 +2,11 @@ server:
   port: 8216
 spring:
   datasource:
-    url: jdbc:sqlserver://yujin.database.windows.net:1433;database=yujing;user=yujin@yujin;password=12345678App;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:mysql://yujinapp.cbwk0fuxtspa.ap-northeast-1.rds.amazonaws.com:3306/sys
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: 1234-5678App
+
+
+
 
